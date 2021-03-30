@@ -1,6 +1,32 @@
 # This script analyzes stroke occurrences versus 10 variables
 # Several models are trained to predict strokes and assess stroke risk
 
+# Install libraries if necessary
+if (!require(tidyverse))
+  install.packages("tidyverse", repos = "http://cran.us.r-project.org")
+if (!require(readr))
+  install.packages("readr", repos = "http://cran.us.r-project.org")
+if (!require(varhandle))
+  install.packages("varhandle", repos = "http://cran.us.r-project.org")
+if (!require(caret))
+  install.packages("caret", repos = "http://cran.us.r-project.org")
+if (!require(e1071))
+  install.packages("e1071", repos = "http://cran.us.r-project.org")
+if (!require(pROC))
+  install.packages("pROC", repos = "http://cran.us.r-project.org")
+if (!require(RANN))
+  install.packages("RANN", repos = "http://cran.us.r-project.org")
+if (!require(randomForest))
+  install.packages("randomForest", repos = "http://cran.us.r-project.org")
+if (!require(ranger))
+  install.packages("ranger", repos = "http://cran.us.r-project.org")
+if (!require(rpart))
+  install.packages("rpart", repos = "http://cran.us.r-project.org")
+if (!require(gbm))
+  install.packages("gbm", repos = "http://cran.us.r-project.org")
+if (!require(nnet))
+  install.packages("nnet", repos = "http://cran.us.r-project.org")
+
 # Load libraries
 library("tidyverse")
 library("readr")
