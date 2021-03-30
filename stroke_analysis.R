@@ -24,7 +24,8 @@ dat <- read_csv("healthcare-dataset-stroke-data.csv")
 
 # Create rdas directory if doesn't exist and save dat
 wd <- getwd()
-ifelse(!dir.exists(file.path(wd, "rdas")), dir.create(file.path(wd, "rdas")),
+ifelse(!dir.exists(file.path(wd, "rdas")),
+       dir.create(file.path(wd, "rdas")),
        FALSE)
 save(dat, file = "rdas/stroke_data.rda")
 
@@ -58,6 +59,7 @@ info <- dat %>%
   summarize(count = n(),
             percentage = round(100 * count / nrow(dat), 2),
             ypos = round(count / 2))
+
 # Round female and male percentages to 1 digit
 info[1:2, 3] <- round(info[1:2, 3], 1)
 
@@ -69,14 +71,17 @@ info
 info %>%
   mutate(gender = reorder(gender, count)) %>%
   ggplot(aes(gender, count, fill = gender)) +
-  geom_bar(stat = "identity", color = "black",
-           width = 0.8, show.legend = FALSE) +
+  geom_bar(stat = "identity",
+           color = "black",
+           width = 0.8,
+           show.legend = FALSE) +
   scale_fill_manual(values = c("seagreen3", "skyblue3", "orchid3")) +
   geom_text(aes(label = paste0(percentage, "%"), y = ypos)) +
   ggtitle("Gender distribution")
 
 # Save plot
-ifelse(!dir.exists(file.path(wd, "figs")), dir.create(file.path(wd, "figs")),
+ifelse(!dir.exists(file.path(wd, "figs")),
+       dir.create(file.path(wd, "figs")),
        FALSE)
 rm(wd)
 ggsave("figs/gender_distribution.png", dpi = 95)
@@ -84,7 +89,9 @@ ggsave("figs/gender_distribution.png", dpi = 95)
 # Plot age distribution
 dat %>%
   ggplot(aes(age)) +
-  geom_histogram(color = "black", fill = "slateblue3", breaks = seq(0, 85, 5)) +
+  geom_histogram(color = "black",
+                 fill = "slateblue3",
+                 breaks = seq(0, 85, 5)) +
   ggtitle("Age distribution")
 
 # Save plot
@@ -106,8 +113,10 @@ info
 info %>%
   mutate(hypertension = reorder(hypertension, count)) %>%
   ggplot(aes(hypertension, count, fill = hypertension)) +
-  geom_bar(stat = "identity", color = "black",
-           width = 0.6, show.legend = FALSE) +
+  geom_bar(stat = "identity",
+           color = "black",
+           width = 0.6,
+           show.legend = FALSE) +
   scale_fill_manual(values = c("brown2", "royalblue3")) +
   geom_text(aes(label = paste0(percentage, "%"), y = ypos)) +
   scale_x_discrete(labels = c("yes", "no")) +
@@ -132,8 +141,10 @@ info
 info %>%
   mutate(heart_disease = reorder(heart_disease, count)) %>%
   ggplot(aes(heart_disease, count, fill = heart_disease)) +
-  geom_bar(stat = "identity", color = "black",
-           width = 0.6, show.legend = FALSE) +
+  geom_bar(stat = "identity",
+           color = "black",
+           width = 0.6,
+           show.legend = FALSE) +
   scale_fill_manual(values = c("brown2", "royalblue3")) +
   geom_text(aes(label = paste0(percentage, "%"), y = ypos)) +
   scale_x_discrete(labels = c("yes", "no")) +
@@ -155,8 +166,10 @@ info
 # Plot marriage status distribution
 info %>%
   ggplot(aes(ever_married, count, fill = ever_married)) +
-  geom_bar(stat = "identity", color = "black",
-           width = 0.6, show.legend = FALSE) +
+  geom_bar(stat = "identity",
+           color = "black",
+           width = 0.6,
+           show.legend = FALSE) +
   scale_fill_manual(values = c("seagreen3", "orchid3")) +
   geom_text(aes(label = paste0(percentage, "%"), y = ypos)) +
   scale_x_discrete(labels = c("no", "yes")) +
@@ -182,8 +195,10 @@ info
 info %>%
   mutate(work_type = reorder(work_type, count)) %>%
   ggplot(aes(work_type, count, fill = work_type)) +
-  geom_bar(stat = "identity", color = "black",
-           width = 0.8, show.legend = FALSE) +
+  geom_bar(stat = "identity",
+           color = "black",
+           width = 0.8,
+           show.legend = FALSE) +
   scale_fill_manual(values = c("orchid3", "slateblue3", "seagreen3",
                                "chocolate2", "firebrick2")) +
   geom_text(aes(label = paste0(percentage, "%"), y = ypos)) +
@@ -207,8 +222,10 @@ info
 # Plot residence type distribution
 info %>%
   ggplot(aes(Residence_type, count, fill = Residence_type)) +
-  geom_bar(stat = "identity", color = "black",
-           width = 0.6, show.legend = FALSE) +
+  geom_bar(stat = "identity",
+           color = "black",
+           width = 0.6,
+           show.legend = FALSE) +
   scale_fill_manual(values = c("tan4", "steelblue3")) +
   geom_text(aes(label = paste0(percentage, "%"), y = ypos)) +
   scale_x_discrete(labels = c("rural", "urban")) +
@@ -221,7 +238,8 @@ ggsave("figs/residence_type_distribution.png", dpi = 95)
 # Plot average glucose level distribution
 dat %>%
   ggplot(aes(avg_glucose_level)) +
-  geom_histogram(color = "black", fill = "orchid3") +
+  geom_histogram(color = "black",
+                 fill = "orchid3") +
   xlab("average glucose level") +
   ggtitle("Average glucose level distribution")
 
@@ -231,7 +249,8 @@ ggsave("figs/avg_glucose_distribution.png", dpi = 95)
 # Plot bmi distribution
 dat %>%
   ggplot(aes(bmi)) +
-  geom_histogram(color = "black", fill = "seagreen3") +
+  geom_histogram(color = "black",
+                 fill = "seagreen3") +
   xlab("body mass index") +
   ggtitle("Body mass index distribution")
 
@@ -251,8 +270,10 @@ info
 info %>%
   mutate(smoking_status = reorder(smoking_status, count)) %>%
   ggplot(aes(smoking_status, count, fill = smoking_status)) +
-  geom_bar(stat = "identity", color = "black",
-           width = 0.7, show.legend = FALSE) +
+  geom_bar(stat = "identity",
+           color = "black",
+           width = 0.7,
+           show.legend = FALSE) +
   scale_fill_manual(values = c("firebrick3", "orchid3",
                                "slateblue3", "seagreen3")) +
   geom_text(aes(label = paste0(percentage, "%"), y = ypos)) +
@@ -278,8 +299,10 @@ info
 info %>%
   mutate(stroke = reorder(stroke, count)) %>%
   ggplot(aes(stroke, count, fill = stroke)) +
-  geom_bar(stat = "identity", color = "black",
-           width = 0.6, show.legend = FALSE) +
+  geom_bar(stat = "identity",
+           color = "black",
+           width = 0.6,
+           show.legend = FALSE) +
   scale_fill_manual(values = c("brown2", "royalblue3")) +
   geom_text(aes(label = paste0(percentage, "%"), y = ypos)) +
   scale_x_discrete(labels = c("yes", "no")) +
@@ -310,8 +333,10 @@ info
 info %>%
   mutate(gender = reorder(gender, stroke_percent)) %>%
   ggplot(aes(gender, stroke_percent, fill = gender)) +
-  geom_bar(stat = "identity", color = "black",
-           width = 0.8, show.legend = FALSE) +
+  geom_bar(stat = "identity",
+           color = "black",
+           width = 0.8,
+           show.legend = FALSE) +
   scale_fill_manual(values = c("seagreen3", "orchid3", "skyblue3")) +
   geom_text(aes(label = paste0(stroke_percent, "%"), y = ypos)) +
   scale_y_continuous(breaks = c(0, 2, 4),
@@ -336,7 +361,8 @@ dat %>%
 # Boxplot age distribution by stroke occurrence
 dat %>%
   ggplot(aes(stroke, age)) +
-  geom_boxplot(color = "black", fill = "slateblue3") +
+  geom_boxplot(color = "black",
+               fill = "slateblue3") +
   xlab("stroke event") +
   scale_x_discrete(labels = c("no", "yes")) +
   coord_flip() +
@@ -353,8 +379,11 @@ names(stroke.labs) <- c(0, 1)
 dat %>%
   mutate(stroke = reorder(stroke, desc(stroke))) %>%
   ggplot(aes(age)) +
-  geom_histogram(color = "black", fill = "slateblue3", breaks = seq(0, 85, 5)) +
-  facet_grid(stroke ~ ., labeller = labeller(stroke = stroke.labs)) +
+  geom_histogram(color = "black",
+                 fill = "slateblue3",
+                 breaks = seq(0, 85, 5)) +
+  facet_grid(stroke ~ .,
+             labeller = labeller(stroke = stroke.labs)) +
   ggtitle("Age distribution by stroke occurrence")
 
 # Save plot
@@ -366,9 +395,14 @@ dat %>%
   group_by(age_strata) %>%
   summarize(stroke_percent = 100 * sum(stroke == 1) / n()) %>%
   ggplot(aes(age_strata, stroke_percent)) +
-  geom_smooth(color = "slateblue3", size = 1, se = FALSE) +
-  geom_point(color = "black", fill = "slateblue3",
-             size = 3, shape = 21, alpha = 0.5) +
+  geom_smooth(color = "slateblue3",
+              size = 1,
+              se = FALSE) +
+  geom_point(color = "black",
+             fill = "slateblue3",
+             size = 3,
+             shape = 21,
+             alpha = 0.5) +
   xlab("age group") +
   scale_x_continuous(breaks = seq(1, 16, 3),
                      labels = c("0-5", "15-20", "30-35",
@@ -395,13 +429,17 @@ info
 info %>%
   mutate(hypertension = as.character(hypertension)) %>%
   ggplot(aes(hypertension, stroke_percent, fill = hypertension)) +
-  geom_bar(stat = "identity", color = "black",
-           width = 0.6, show.legend = FALSE) +
+  geom_bar(stat = "identity",
+           color = "black",
+           width = 0.6,
+           show.legend = FALSE) +
   scale_fill_manual(values = c("royalblue3", "brown2")) +
-  geom_text(aes(label = paste0(stroke_percent, "%"), y = ypos)) +
+  geom_text(aes(label = paste0(stroke_percent, "%"),
+                y = ypos)) +
   scale_x_discrete(labels = c("no", "yes")) +
   ylab("stroke rate") +
-  scale_y_continuous(breaks = c(0, 5, 10), labels = paste0(c(0, 5, 10), "%")) +
+  scale_y_continuous(breaks = c(0, 5, 10),
+                     labels = paste0(c(0, 5, 10), "%")) +
   ggtitle("Stroke rate by hypertension")
 
 # Save plot
@@ -411,7 +449,8 @@ ggsave("figs/strokes_by_hypertension.png", dpi = 95)
 dat %>%
   mutate(hypertension = as.factor(hypertension)) %>%
   ggplot(aes(hypertension, age, fill = hypertension)) +
-  geom_boxplot(color = "black", show.legend = FALSE) +
+  geom_boxplot(color = "black",
+               show.legend = FALSE) +
   scale_fill_manual(values = c("royalblue3", "brown2")) +
   xlab("hypertension") +
   scale_x_discrete(labels = c("no", "yes")) +
@@ -439,8 +478,10 @@ info
 info %>%
   mutate(heart_disease = as.character(heart_disease)) %>%
   ggplot(aes(heart_disease, stroke_percent, fill = heart_disease)) +
-  geom_bar(stat = "identity", color = "black",
-           width = 0.6, show.legend = FALSE) +
+  geom_bar(stat = "identity",
+           color = "black",
+           width = 0.6,
+           show.legend = FALSE) +
   scale_fill_manual(values = c("royalblue3", "brown2")) +
   geom_text(aes(label = paste0(stroke_percent, "%"), y = ypos)) +
   xlab("heart disease") +
@@ -457,7 +498,8 @@ ggsave("figs/strokes_by_heart_disease.png", dpi = 95)
 dat %>%
   mutate(heart_disease = as.factor(heart_disease)) %>%
   ggplot(aes(heart_disease, age, fill = heart_disease)) +
-  geom_boxplot(color = "black", show.legend = FALSE) +
+  geom_boxplot(color = "black",
+               show.legend = FALSE) +
   scale_fill_manual(values = c("royalblue3", "brown2")) +
   xlab("heart disease") +
   scale_x_discrete(labels = c("no", "yes")) +
@@ -484,8 +526,10 @@ info
 # Plot stroke rate by marriage status
 info %>%
   ggplot(aes(ever_married, stroke_percent, fill = ever_married)) +
-  geom_bar(stat = "identity", color = "black",
-           width = 0.6, show.legend = FALSE) +
+  geom_bar(stat = "identity",
+           color = "black",
+           width = 0.6,
+           show.legend = FALSE) +
   scale_fill_manual(values = c("seagreen3", "orchid3")) +
   geom_text(aes(label = paste0(stroke_percent, "%"), y = ypos)) +
   xlab("ever married") +
@@ -500,7 +544,8 @@ ggsave("figs/strokes_by_marriage_status.png", dpi = 95)
 # Plot age distribution by marriage status
 dat %>%
   ggplot(aes(ever_married, age, fill = ever_married)) +
-  geom_boxplot(color = "black", show.legend = FALSE) +
+  geom_boxplot(color = "black",
+               show.legend = FALSE) +
   scale_fill_manual(values = c("seagreen3", "orchid3")) +
   xlab("ever married") +
   ylab("age") +
@@ -533,8 +578,10 @@ info
 info %>%
   mutate(work_type = reorder(work_type, stroke_percent)) %>%
   ggplot(aes(work_type, stroke_percent, fill = work_type)) +
-  geom_bar(stat = "identity", color = "black",
-           width = 0.8, show.legend = FALSE) +
+  geom_bar(stat = "identity",
+           color = "black",
+           width = 0.8,
+           show.legend = FALSE) +
   scale_fill_manual(values = c("orchid3", "seagreen3", "slateblue3",
                                "firebrick2", "chocolate2")) +
   geom_text(aes(label = paste0(stroke_percent, "%"), y = ypos)) +
@@ -554,7 +601,8 @@ dat %>%
   mutate(work_type = as.factor(work_type)) %>%
   mutate(work_type = fct_reorder(work_type, age)) %>%
   ggplot(aes(work_type, age, fill = work_type)) +
-  geom_boxplot(color = "black", show.legend = FALSE) +
+  geom_boxplot(color = "black",
+               show.legend = FALSE) +
   scale_fill_manual(values = c("seagreen3", "orchid3", "firebrick2",
                                "slateblue3", "chocolate2")) +
   xlab("work type") +
@@ -580,8 +628,10 @@ info
 # Plot stroke rate by residence type
 info %>%
   ggplot(aes(Residence_type, stroke_percent, fill = Residence_type)) +
-  geom_bar(stat = "identity", color = "black",
-           width = 0.6, show.legend = FALSE) +
+  geom_bar(stat = "identity",
+           color = "black",
+           width = 0.6,
+           show.legend = FALSE) +
   scale_fill_manual(values = c("tan4", "steelblue3")) +
   geom_text(aes(label = paste0(stroke_percent, "%"), y = ypos)) +
   xlab("residence type") +
@@ -596,7 +646,8 @@ ggsave("figs/strokes_by_residence_type.png", dpi = 95)
 # Plot age distribution by residence type
 dat %>%
   ggplot(aes(Residence_type, age, fill = Residence_type)) +
-  geom_boxplot(color = "black", show.legend = FALSE) +
+  geom_boxplot(color = "black",
+               show.legend = FALSE) +
   scale_fill_manual(values = c("tan4", "steelblue3")) +
   xlab("residence type") +
   ylab("age") +
@@ -625,7 +676,8 @@ dat %>%
 # Boxplot average glucose level distribution by stroke occurrence
 dat %>%
   ggplot(aes(stroke, avg_glucose_level)) +
-  geom_boxplot(color = "black", fill = "orchid3") +
+  geom_boxplot(color = "black",
+               fill = "orchid3") +
   scale_x_discrete(labels = c("no", "yes")) +
   xlab("stroke event") +
   ylab("average glucose level") +
@@ -639,9 +691,11 @@ ggsave("figs/glucose_distribution_by_stroke_boxplot.png", dpi = 95)
 dat %>%
   mutate(stroke = reorder(stroke, desc(stroke))) %>%
   ggplot(aes(avg_glucose_level)) +
-  geom_histogram(color = "black", fill = "orchid3") +
+  geom_histogram(color = "black",
+                 fill = "orchid3") +
   xlab("average glucose level") +
-  facet_grid(stroke ~ ., labeller = labeller(stroke = stroke.labs)) +
+  facet_grid(stroke ~ .,
+             labeller = labeller(stroke = stroke.labs)) +
   ggtitle("Average glucose level distribution by stroke occurrence")
 
 # Save plot
@@ -653,11 +707,17 @@ dat %>%
   group_by(agl_strata) %>%
   summarize(stroke_percent = 100 * sum(stroke == 1) / n()) %>%
   ggplot(aes(agl_strata, stroke_percent)) +
-  geom_smooth(color = "orchid3", size = 1, se = FALSE) +
-  geom_point(color = "black", fill = "orchid3",
-             shape = 21, size = 3, alpha = 0.5) +
+  geom_smooth(color = "orchid3",
+              size = 1,
+              se = FALSE) +
+  geom_point(color = "black",
+             fill = "orchid3",
+             shape = 21,
+             size = 3,
+             alpha = 0.5) +
   xlab("average glucose level") +
-  scale_x_continuous(breaks = seq(3.5, 13.5, 2), labels = seq(60, 260, 40)) +
+  scale_x_continuous(breaks = seq(3.5, 13.5, 2),
+                     labels = seq(60, 260, 40)) +
   ylab("stroke rate") +
   scale_y_continuous(limits = c(0, 22.3),
                      breaks = seq(0, 20, 5),
@@ -684,7 +744,8 @@ dat %>%
 # Boxplot bmi distribution by stroke occurrence
 dat %>%
   ggplot(aes(stroke, bmi)) +
-  geom_boxplot(color = "black", fill = "seagreen3") +
+  geom_boxplot(color = "black",
+               fill = "seagreen3") +
   scale_x_discrete(labels = c("no", "yes")) +
   xlab("stroke event") +
   ylab("body mass index") +
@@ -698,9 +759,11 @@ ggsave("figs/bmi_distribution_by_stroke_boxplot.png", dpi = 95)
 dat %>%
   mutate(stroke = reorder(stroke, desc(stroke))) %>%
   ggplot(aes(bmi)) +
-  geom_histogram(color = "black", fill = "seagreen3") +
+  geom_histogram(color = "black",
+                 fill = "seagreen3") +
   xlab("body mass index") +
-  facet_grid(stroke ~ ., labeller = labeller(stroke = stroke.labs)) +
+  facet_grid(stroke ~ .,
+             labeller = labeller(stroke = stroke.labs)) +
   ggtitle("Body mass index distribution by stroke occurrence")
 rm(stroke.labs)
 
@@ -718,9 +781,14 @@ dat %>%
   group_by(bmi_strata) %>%
   summarize(stroke_percent = 100 * sum(stroke == 1) / n()) %>%
   ggplot(aes(bmi_strata, stroke_percent)) +
-  geom_smooth(color = "seagreen3", size = 1, se = FALSE) +
-  geom_point(color = "black", fill = "seagreen3",
-             size = 3, shape = 21, alpha = 0.5) +
+  geom_smooth(color = "seagreen3",
+              size = 1,
+              se = FALSE) +
+  geom_point(color = "black",
+             fill = "seagreen3",
+             size = 3,
+             shape = 21,
+             alpha = 0.5) +
   xlab("body mass index") +
   scale_x_continuous(breaks = seq(7.167, 15.5, 1.6666),
                      labels = c(seq(20, 40, 5), "45+")) +
@@ -751,8 +819,10 @@ info
 info %>%
   mutate(smoking_status = reorder(smoking_status, stroke_percent)) %>%
   ggplot(aes(smoking_status, stroke_percent, fill = smoking_status)) +
-  geom_bar(stat = "identity", color = "black",
-           width = 0.7, show.legend = FALSE) +
+  geom_bar(stat = "identity",
+           color = "black",
+           width = 0.7,
+           show.legend = FALSE) +
   scale_fill_manual(values = c("slateblue3", "seagreen3",
                                "firebrick3", "orchid3")) +
   geom_text(aes(label = paste0(stroke_percent, "%"), y = ypos)) +
@@ -770,7 +840,8 @@ dat %>%
   mutate(smoking_status = as.factor(smoking_status)) %>%
   mutate(smoking_status = fct_reorder(smoking_status, age)) %>%
   ggplot(aes(smoking_status, age, fill = smoking_status)) +
-  geom_boxplot(color = "black", show.legend = FALSE) +
+  geom_boxplot(color = "black",
+               show.legend = FALSE) +
   scale_fill_manual(values = c("slateblue3", "seagreen3",
                                "firebrick3", "orchid3")) +
   xlab("smoking status") +
@@ -936,8 +1007,10 @@ cm
 acc <- unname(cm$byClass[11])
 sens <- unname(cm$byClass[[1]])
 spec <- unname(cm$byClass[[2]])
-accuracy_results <- data.frame(model = "rf", balanced_accuracy = acc,
-                               sensitivity = sens, specificity = spec)
+accuracy_results <- data.frame(model = "rf",
+                               balanced_accuracy = acc,
+                               sensitivity = sens,
+                               specificity = spec)
 
 # Extract ROC data from model
 test_roc <- roc(test$stroke,
@@ -947,7 +1020,8 @@ test_roc <- roc(test$stroke,
 auc(test_roc)
 
 # Save AUC to dataframe
-auc_results <- data.frame(model = "rf", AUC = auc(test_roc))
+auc_results <- data.frame(model = "rf",
+                          AUC = auc(test_roc))
 
 # Pull true positive and false positive rates from test_roc
 # Reverse order of vectors for cleaner lines when plotting
@@ -958,9 +1032,12 @@ df_roc <- data.frame(tpr = rev(test_roc$sensitivities),
 # Plot ROC curve
 df_roc %>%
   ggplot(aes(fpr, tpr)) +
-  geom_line(color = "navy", size = 1) +
+  geom_line(color = "navy",
+            size = 1) +
   geom_abline(color = "gray") +
-  geom_abline(intercept = 1, slope = -1, color = "gray") +
+  geom_abline(intercept = 1,
+              slope = -1,
+              color = "gray") +
   xlab("false positive rate") +
   ylab("true positive rate") +
   ggtitle("ROC curve for rf model")
@@ -1056,7 +1133,9 @@ df_roc %>%
   ggplot(aes(fpr, tpr, color = model)) +
   geom_line(size = 1) +
   geom_abline(color = "gray") +
-  geom_abline(intercept = 1, slope = -1, color = "gray") +
+  geom_abline(intercept = 1,
+              slope = -1,
+              color = "gray") +
   xlab("false positive rate") +
   ylab("true positive rate") +
   ggtitle("ROC curve for rf and ranger models")
@@ -1101,7 +1180,7 @@ accuracy_results <- rbind(accuracy_results, c("ranger_12", acc, sens, spec))
 # rpart model with weights #
 #==========================#
 
-# Set up train control function
+# Adjust train control function
 ctrl$number <- 10
 ctrl$repeats <- 5
 
@@ -1161,7 +1240,9 @@ df_roc %>%
   ggplot(aes(fpr, tpr, color = model)) +
   geom_line(size = 1) +
   geom_abline(color = "gray") +
-  geom_abline(intercept = 1, slope = -1, color = "gray") +
+  geom_abline(intercept = 1,
+              slope = -1,
+              color = "gray") +
   xlab("false positive rate") +
   ylab("true positive rate") +
   ggtitle("ROC curve by model")
@@ -1244,7 +1325,9 @@ df_roc %>%
   ggplot(aes(fpr, tpr, color = model)) +
   geom_line(size = 1) +
   geom_abline(color = "gray") +
-  geom_abline(intercept = 1, slope = -1, color = "gray") +
+  geom_abline(intercept = 1,
+              slope = -1,
+              color = "gray") +
   xlab("false positive rate") +
   ylab("true positive rate") +
   ggtitle("ROC curve by model")
@@ -1289,7 +1372,7 @@ accuracy_results <- rbind(accuracy_results, c("gbm_62", acc, sens, spec))
 # nnet model with weights #
 #=========================#
 
-# Modify train control function
+# Adjust train control function
 ctrl$number <- 5
 ctrl$repeats <- 3
 
@@ -1343,7 +1426,8 @@ df_roc <- rbind(df_roc, df_roc_nnet)
 # Compare ROC curves from different models
 df_roc %>%
   ggplot(aes(fpr, tpr, color = model)) +
-  geom_line(size = 1, alpha = 0.7) +
+  geom_line(size = 1,
+            alpha = 0.7) +
   geom_abline(color = "gray") +
   geom_abline(intercept = 1, slope = -1, color = "gray") +
   xlab("false positive rate") +
@@ -1390,7 +1474,7 @@ accuracy_results <- rbind(accuracy_results, c("nnet_54", acc, sens, spec))
 # multinom model with weights #
 #=============================#
 
-# Set up train control function
+# Adjust train control function
 ctrl$number <- 10
 ctrl$repeats <- 5
 
@@ -1444,9 +1528,12 @@ df_roc <- rbind(df_roc, df_roc_multinom)
 # Compare ROC curves from different models
 df_roc %>%
   ggplot(aes(fpr, tpr, color = model)) +
-  geom_line(size = 1, alpha = 0.7) +
+  geom_line(size = 1,
+            alpha = 0.7) +
   geom_abline(color = "gray") +
-  geom_abline(intercept = 1, slope = -1, color = "gray") +
+  geom_abline(intercept = 1,
+              slope = -1,
+              color = "gray") +
   xlab("false positive rate") +
   ylab("true positive rate") +
   ggtitle("ROC curve by model")
@@ -1618,7 +1705,7 @@ risk[risk > 0.071 & train$stroke == "yes"] %>%
 
 # Make stroke prediction based on risk cutoff of 0.072
 train_strat <- train_strat %>%
-  mutate(pred = as.factor(ifelse(risk < 0.072, "no", "yes")))
+  mutate(pred = as.factor(ifelse(risk > 0.072, "yes", "no")))
 
 # Examine confusion matrix of results
 confusionMatrix(train_strat$pred, train_strat$stroke, positive = "yes")
@@ -1640,7 +1727,7 @@ risk_test <- test_strat %>%
   .$risk
 
 # Make predictions on test set with cutoff of 0.072
-pred_risk <- factor(ifelse(risk_test < 0.072, "no", "yes"))
+pred_risk <- factor(ifelse(risk_test > 0.072, "yes", "no"))
 
 # Examine confusion matrix of results
 cm <- confusionMatrix(pred_risk, test_strat$stroke, positive = "yes")
@@ -1661,7 +1748,7 @@ max <- max(risk_test)
 min <- min(risk_test)
 
 # Round max and min to 4 digits, add 0.0001 to max, subtract 0.0001 from min
-# This ensures we capture all points
+# This ensures all points are captured
 max <- round(max, 4) + 0.0001
 min <- round(min, 4) - 0.0001
 
@@ -1677,7 +1764,9 @@ fprs <- sapply(cutoffs, function(c) {
                   levels = c("no", "yes"))
   1 - confusionMatrix(preds, test_strat$stroke, positive = "yes")$byClass[[2]]
 })
-df_roc_risk <- data.frame(tpr = tprs, fpr = fprs, model = "risk")
+df_roc_risk <- data.frame(tpr = tprs,
+                          fpr = fprs,
+                          model = "risk")
 
 # Add ROC data from risk model to df_roc
 df_roc <- rbind(df_roc, df_roc_risk)
@@ -1685,9 +1774,12 @@ df_roc <- rbind(df_roc, df_roc_risk)
 # Compare ROC curves from different models
 df_roc %>%
   ggplot(aes(fpr, tpr, color = model)) +
-  geom_line(size = 1, alpha = 0.7) +
+  geom_line(size = 1,
+            alpha = 0.7) +
   geom_abline(color = "gray") +
-  geom_abline(intercept = 1, slope = -1, color = "gray") +
+  geom_abline(intercept = 1,
+              slope = -1,
+              color = "gray") +
   xlab("false positive rate") +
   ylab("true positive rate") +
   ggtitle("ROC curve by model")
@@ -1769,7 +1861,8 @@ spec <- mean(results[2,])
 acc <- mean(results[3,])
 
 # Add results of final test to accuracy_results
-accuracy_results <- rbind(accuracy_results, c("final test nnet_54", acc, sens, spec))
+accuracy_results <- rbind(accuracy_results,
+                          c("final test nnet_54", acc, sens, spec))
 
 # Display results
 accuracy_results
@@ -1810,12 +1903,18 @@ prop_ratios <- sapply(values, function(v) {
 })
 
 # Plot proportion ratios vs thresholds
-df <- data.frame(threshold = values, ratio = prop_ratios)
+df <- data.frame(threshold = values,
+                 ratio = prop_ratios)
 df %>%
   ggplot(aes(threshold, ratio)) +
-  geom_point(color = "black", fill = "indianred4",
-             size = 2, shape = 21, alpha = 0.5) +
-  geom_smooth(color = "indianred4", size = 1, se = FALSE) +
+  geom_point(color = "black",
+             fill = "indianred4",
+             size = 2,
+             shape = 21,
+             alpha = 0.5) +
+  geom_smooth(color = "indianred4",
+              size = 1,
+              se = FALSE) +
   xlab(expression(paste("probability threshold, ", p[t]))) +
   ylab(expression(paste("Pr(p > ", p[t], " | stroke=yes) / Pr(p > ",
                         p[t], " | stroke=no)"))) +
@@ -1924,7 +2023,9 @@ dat %>%
   gather(gender, percent, -result) %>%
   group_by(result) %>%
   ggplot(aes(result, percent, fill = gender)) +
-  geom_bar(color = "black", stat = "identity", position = "dodge") +
+  geom_bar(color = "black",
+           stat = "identity",
+           position = "dodge") +
   scale_fill_manual(values = c("orchid3", "skyblue3", "seagreen3")) +
   xlab("prediction result") +
   scale_y_continuous(labels = paste0(seq(0, 60, 20), "%")) +
@@ -1937,7 +2038,8 @@ ggsave("figs/gender_distribution_by_result.png", dpi = 95)
 dat %>%
   mutate(result = reorder(result, -as.numeric(result))) %>%
   ggplot(aes(result, age)) +
-  geom_boxplot(color = "black", fill = "slateblue3") +
+  geom_boxplot(color = "black",
+               fill = "slateblue3") +
   xlab("prediction result") +
   coord_flip() +
   ggtitle("Age distribution by prediction result")
@@ -1956,7 +2058,9 @@ dat %>%
   gather(hypertension, percent, -result) %>%
   group_by(result) %>%
   ggplot(aes(result, percent, fill = hypertension)) +
-  geom_bar(color = "black", stat = "identity", position = "dodge") +
+  geom_bar(color = "black",
+           stat = "identity",
+           position = "dodge") +
   scale_fill_manual(values = c("royalblue3", "brown2")) +
   xlab("prediction result") +
   scale_y_continuous(labels = paste0(seq(0, 100, 25), "%")) +
@@ -1976,7 +2080,9 @@ dat %>%
   gather(heart_disease, percent, -result) %>%
   group_by(result) %>%
   ggplot(aes(result, percent, fill = heart_disease)) +
-  geom_bar(color = "black", stat = "identity", position = "dodge") +
+  geom_bar(color = "black",
+           stat = "identity",
+           position = "dodge") +
   scale_fill_manual(name = "heart disease",
                     values = c("royalblue3", "brown2")) +
   xlab("prediction result") +
@@ -1997,7 +2103,9 @@ dat %>%
   gather(ever_married, percent, -result) %>%
   group_by(result) %>%
   ggplot(aes(result, percent, fill = ever_married)) +
-  geom_bar(color = "black", stat = "identity", position = "dodge") +
+  geom_bar(color = "black",
+           stat = "identity",
+           position = "dodge") +
   scale_fill_manual(name = "ever married",
                     values = c("seagreen3", "orchid3")) +
   xlab("prediction result") +
@@ -2024,7 +2132,9 @@ dat %>%
   gather(work_type, percent, -result) %>%
   group_by(result) %>%
   ggplot(aes(result, percent, fill = work_type)) +
-  geom_bar(color = "black", stat = "identity", position = "dodge") +
+  geom_bar(color = "black",
+           stat = "identity",
+           position = "dodge") +
   scale_fill_manual(name = "work type",
                     labels = c("private", "self-employed", "children",
                                "govt job", "never worked"),
@@ -2049,7 +2159,9 @@ dat %>%
   gather(Residence_type, percent, -result) %>%
   group_by(result) %>%
   ggplot(aes(result, percent, fill = Residence_type)) +
-  geom_bar(color = "black", stat = "identity", position = "dodge") +
+  geom_bar(color = "black",
+           stat = "identity",
+           position = "dodge") +
   scale_fill_manual(name = "residence type",
                     values = c("tan4", "steelblue3")) +
   xlab("prediction result") +
@@ -2064,7 +2176,8 @@ ggsave("figs/residence_type_distribution_by_result.png", dpi = 95)
 dat %>%
   mutate(result = reorder(result, -as.numeric(result))) %>%
   ggplot(aes(result, avg_glucose_level)) +
-  geom_boxplot(color = "black", fill = "orchid3") +
+  geom_boxplot(color = "black",
+               fill = "orchid3") +
   xlab("prediction result") +
   ylab("average glucose level") +
   coord_flip() +
@@ -2077,7 +2190,8 @@ ggsave("figs/glucose_distribution_by_result.png", dpi = 95)
 dat %>%
   mutate(result = reorder(result, -as.numeric(result))) %>%
   ggplot(aes(result, bmi)) +
-  geom_boxplot(color = "black", fill = "seagreen3") +
+  geom_boxplot(color = "black",
+               fill = "seagreen3") +
   xlab("prediction result") +
   ylab("body mass index") +
   coord_flip() +
@@ -2090,7 +2204,8 @@ ggsave("figs/bmi_distribution_by_result.png", dpi = 95)
 dat %>%
   mutate(result = reorder(result, -as.numeric(result))) %>%
   ggplot(aes(result, bmi)) +
-  geom_boxplot(color = "black", fill = "seagreen3") +
+  geom_boxplot(color = "black",
+               fill = "seagreen3") +
   xlab("prediction result") +
   ylim(c(10,50)) +
   ylab("body mass index") +
@@ -2115,7 +2230,9 @@ dat %>%
   gather(smoking_status, percent, -result) %>%
   group_by(result) %>%
   ggplot(aes(result, percent, fill = smoking_status)) +
-  geom_bar(color = "black", stat = "identity", position = "dodge") +
+  geom_bar(color = "black",
+           stat = "identity",
+           position = "dodge") +
   scale_fill_manual(name = "smoking status",
                     labels = c("never smoked", "unknown", "formerly smoked",
                                "smokes"),
