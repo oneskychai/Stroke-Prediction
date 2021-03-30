@@ -84,7 +84,6 @@ We begin by downloading our data set and loading the necessary libraries:
 
 ```{r loading libs, echo = TRUE}
 library("tidyverse")
-library("readr")
 library("varhandle")
 library("caret")
 library("e1071")

@@ -4,8 +4,6 @@
 # Install libraries if necessary
 if (!require(tidyverse))
   install.packages("tidyverse", repos = "http://cran.us.r-project.org")
-if (!require(readr))
-  install.packages("readr", repos = "http://cran.us.r-project.org")
 if (!require(varhandle))
   install.packages("varhandle", repos = "http://cran.us.r-project.org")
 if (!require(caret))
@@ -29,7 +27,6 @@ if (!require(nnet))
 
 # Load libraries
 library("tidyverse")
-library("readr")
 library("varhandle")
 library("caret")
 library("e1071")
@@ -46,7 +43,8 @@ library("nnet")
 # Unzip to extract csv file
 
 # Read csv file into data frame
-dat <- read_csv("healthcare-dataset-stroke-data.csv")
+url <- "https://raw.githubusercontent.com/oneskychai/Stroke-Prediction/trunk/healthcare-dataset-stroke-data.csv"
+dat <- read_csv(url)
 
 # Create rdas directory if doesn't exist and save dat
 wd <- getwd()
