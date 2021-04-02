@@ -930,7 +930,8 @@ data.frame(model = "nnet_54", balanced_accuracy = acc,
 ### **multinom** model with weights
 
 For the next model, we use the `multinom` method from the **nnet** package to
-implement penalized multinomial regression. This method isn't as computationally intensive, so we increase our cross validation folds back up to 10 and increase
+implement penalized multinomial regression. This method isn't as computationally
+intensive, so we increase our cross validation folds back up to 10 and increase
 the number of repeats back up to 5. We continue to use class weights and use the
 ROC curve as our metric. We use the default tune grid and train the model.
 
@@ -1341,7 +1342,8 @@ accuracy_results %>%
 
 ## Establish risk level thresholds
 
-The final aspect we add to our model is a risk level assessment that places each observation into 1 of 5 categories ranging from "very low" risk to "very high"
+The final aspect we add to our model is a risk level assessment that places each
+observation into 1 of 5 categories ranging from "very low" risk to "very high"
 risk of stroke. We use the probabilities predicted by the **nnet** model on the
 full data set to determine the probability thresholds for each category. 
 
@@ -1386,7 +1388,8 @@ model is complete.
 We now explore the results of our risk level model to see how it performed. Note
 we are still using the full data set here.
 
-Selecting the observations where a stroke occurred and counting the number of instances of each stroke risk level, we observe:
+Selecting the observations where a stroke occurred and counting the number of
+instances of each stroke risk level, we observe:
 
 ```{r table risk levels stroke yes}
 load("rdas/final_risk_assessment.rda")
@@ -1475,7 +1478,8 @@ marriage status and notice the similarity between their distributions here.
 We see that children and those who never worked fall entirely into the TN's and
 FN's. The self-employed are more prevalent in the TP's and FP's. Those with
 government jobs show up relatively equally. Those who work in the private sector
-are more prevalent in the FN's. This partially reflects the age distributions associated with these groups. Children and those who never worked are all very
+are more prevalent in the FN's. This partially reflects the age distributions
+associated with these groups. Children and those who never worked are all very
 young. The self-employed tend to be older. Those who work government jobs
 tend to be middle aged, which is where we saw more FN's. It appears our model
 may be better at predicting strokes for those who work government jobs and not
@@ -1486,7 +1490,8 @@ quite as good at predicting strokes for those who work in the private sector.
 </p>
 
 We see a slightly higher prevalence of urban dwellers in the TP's, FP's, and
-FN's, with a slightly lower prevalence in the TN's. This partially reflects the importance of this variable in our model. We would expect a lower prevalence of
+FN's, with a slightly lower prevalence in the TN's. This partially reflects the
+importance of this variable in our model. We would expect a lower prevalence of
 urban dwellers in the FN's based on the variable importance. Keep in mind there
 are only 36 FN's, so random variation will affect this category considerably.
 
